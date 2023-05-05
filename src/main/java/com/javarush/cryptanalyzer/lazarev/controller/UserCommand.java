@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class UserCommand {
     final String messageIn = "Введите путь к исходному файлу: ";
     final String messageOut = "Введите путь к конечному файлу: ";
-    final String messageKey = "Введите ключ в целочисленном диапазоне от 1 до 85: ";
+    final String messageKey = "Введите ключ в целочисленном диапазоне от 1 до 83: ";
     final String messageMode = "Введите режим работы \"e\" = \"encrypt\" или \"d\" = \"decrypt\": ";
     final String messageEncrypt = "Файл успешно зашифрован и сохранен в директорию к исходному файлу!";
     final String messageDecrypt = "Файл успешно расшифрован и сохранен в директорию к исходному файлу";

@@ -3,38 +3,37 @@ package com.javarush.cryptanalyzer.lazarev.cryptography;
 import com.javarush.cryptanalyzer.lazarev.constants.AlphabetAndSymbols;
 
 import java.io.*;
-import java.util.Scanner;
 
 
 public class EncryptCaesar {
 
     public static void encryptFile(String filePathIn, String filePathOut, int key) throws IOException {
-        File inFilePath = new File(filePathIn);
-        File outFilePath = new File(filePathOut);
-        Scanner scanner = new Scanner(inFilePath);
-        PrintWriter writer = new PrintWriter(outFilePath);
         String alphabet = AlphabetAndSymbols.ALPHABET;
-        int alphabetLength = alphabet.length();
-        while (scanner.hasNextLine()) {
-            String inputLine = scanner.nextLine();
-            StringBuilder outputLine = new StringBuilder();
 
-            for (int i = 0; i < inputLine.length(); i++) {
-                char inputChar = inputLine.charAt(i);
-                int index = alphabet.indexOf(inputChar);
-                if (index == -1) {
-                    continue;
-                } else {
-                    int outputIndex = (index + key + alphabet.length()) % alphabet.length();
-                    outputLine.append(alphabet.charAt(outputIndex));
+        File inFilePath = !filePathIn.equals("") ? new File(filePathIn) : new File("input.txt");
+        File outFilePath = !filePathIn.equals("") ? new File(filePathOut) : new File("output.txt");
+
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(inFilePath));
+             BufferedWriter bufferedWriter = new BufferedWriter(new PrintWriter(outFilePath))) {
+            String nextLine;
+            while ((nextLine = bufferedReader.readLine()) != null) {
+                StringBuilder outputLine = new StringBuilder();
+
+                for (int i = 0; i < nextLine.length(); i++) {
+                    char inputChar = nextLine.charAt(i);
+                    int index = alphabet.indexOf(inputChar);
+                    if (index == -1) {
+                        outputLine.append(inputChar);
+                    } else {
+                        int outputIndex = (index - key + alphabet.length()) % alphabet.length();
+                        outputLine.append(alphabet.charAt(outputIndex));
+                    }
                 }
+                bufferedWriter.write(outputLine.toString());
+                bufferedWriter.newLine();
+
             }
-
-            writer.println(outputLine.toString());
-
         }
-        writer.close();
-        scanner.close();
     }
 }
 
