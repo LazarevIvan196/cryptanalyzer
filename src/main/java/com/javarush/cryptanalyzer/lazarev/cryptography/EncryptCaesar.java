@@ -10,28 +10,25 @@ public class EncryptCaesar {
     public static void encryptFile(String filePathIn, String filePathOut, int key) throws IOException {
         String alphabet = AlphabetAndSymbols.ALPHABET;
 
-        File inFilePath = !filePathIn.equals("") ? new File(filePathIn) : new File("input.txt");
-        File outFilePath = !filePathIn.equals("") ? new File(filePathOut) : new File("output.txt");
+        File inFilePath = filePathIn.isEmpty() ? new File("input.txt") : new File(filePathIn);
+        File outFilePath = filePathOut.isEmpty() ? new File("encoded.txt") : new File(filePathOut);
 
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(inFilePath));
-             BufferedWriter bufferedWriter = new BufferedWriter(new PrintWriter(outFilePath))) {
-            String nextLine;
-            while ((nextLine = bufferedReader.readLine()) != null) {
-                StringBuilder outputLine = new StringBuilder();
-
-                for (int i = 0; i < nextLine.length(); i++) {
-                    char inputChar = nextLine.charAt(i);
-                    int index = alphabet.indexOf(inputChar);
+        try (BufferedReader reader = new BufferedReader(new FileReader(inFilePath));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(outFilePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                StringBuilder encryptedLine = new StringBuilder();
+                for (char c : line.toCharArray()) {
+                    int index = alphabet.indexOf(c);
                     if (index == -1) {
-                        outputLine.append(inputChar);
+                        encryptedLine.append(c);
                     } else {
-                        int outputIndex = (index - key + alphabet.length()) % alphabet.length();
-                        outputLine.append(alphabet.charAt(outputIndex));
+                        int newIndex = (index - key + alphabet.length()) % alphabet.length();
+                        encryptedLine.append(alphabet.charAt(newIndex));
                     }
                 }
-                bufferedWriter.write(outputLine.toString());
-                bufferedWriter.newLine();
-
+                writer.write(encryptedLine.toString());
+                writer.newLine();
             }
         }
     }

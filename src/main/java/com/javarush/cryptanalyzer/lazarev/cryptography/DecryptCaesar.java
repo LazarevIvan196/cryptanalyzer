@@ -8,29 +8,27 @@ import java.io.*;
 public class DecryptCaesar {
     public static void decryptFile(String filePathIn, String filePathOut, int key) throws IOException {
         String alphabet = AlphabetAndSymbols.ALPHABET;
-        File inFilePath = !filePathIn.equals("") ? new File(filePathIn) : new File("output.txt");
-        File outFilePath = !filePathIn.equals("") ? new File(filePathOut) : new File("encoded.txt");
 
+        File inFilePath = filePathIn.isEmpty() ? new File("encoded.txt") : new File(filePathIn);
+        File outFilePath = filePathOut.isEmpty() ? new File("output.txt") : new File(filePathOut);
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(inFilePath));
-             BufferedWriter bufferedWriter = new BufferedWriter(new PrintWriter(outFilePath))) {
-            String nextLine;
-            while ((nextLine = bufferedReader.readLine()) != null) {
+             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(outFilePath))) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
                 StringBuilder outputLine = new StringBuilder();
 
-                for (int i = 0; i < nextLine.length(); i++) {
-                    char inputChar = nextLine.charAt(i);
-                    int index = alphabet.indexOf(inputChar);
+                for (char c : line.toCharArray()) {
+                    int index = alphabet.indexOf(c);
                     if (index == -1) {
-                        outputLine.append(inputChar);
+                        outputLine.append(c);
                     } else {
-                        int outputIndex = (index + key + alphabet.length()) % alphabet.length();
+                        int outputIndex = (index + key) % alphabet.length();
                         outputLine.append(alphabet.charAt(outputIndex));
                     }
                 }
                 bufferedWriter.write(outputLine.toString());
                 bufferedWriter.newLine();
-
             }
         }
     }
