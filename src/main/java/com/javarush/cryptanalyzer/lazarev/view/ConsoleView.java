@@ -1,17 +1,16 @@
 package com.javarush.cryptanalyzer.lazarev.view;
 
 import com.javarush.cryptanalyzer.lazarev.entity.Result;
-
 import java.util.Scanner;
-
 import static com.javarush.cryptanalyzer.lazarev.constants.ApplicationConstant.*;
 import static com.javarush.cryptanalyzer.lazarev.constants.FunctionCodeConstants.*;
+
 
 
 public class ConsoleView implements View {
     @Override
     public String[] getParameters() {
-        String[] parameters = new String[6];
+        String[] parameters = new String[7];
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.println(messageStart);
             System.out.print(messageMode);
@@ -43,7 +42,7 @@ public class ConsoleView implements View {
         parameters[2] = scanner.nextLine();
         System.out.println(messageKeyMode);
         parameters[3] = scanner.nextLine();
-        if (parameters[3].equalsIgnoreCase(MANUAL)) {
+        if (parameters[3].equalsIgnoreCase("")) {
             System.out.println(messageKey);
             parameters[4] = scanner.nextLine();
         }
@@ -52,7 +51,7 @@ public class ConsoleView implements View {
     }
 
     private void getBrutParams(Scanner scanner, String[] parameters) {
-        System.out.println(messageIn);
+        System.out.println(messageInBrut);
         parameters[1] = scanner.nextLine();
         System.out.println(messageOut);
         parameters[2] = scanner.nextLine();
@@ -66,6 +65,13 @@ public class ConsoleView implements View {
         parameters[2] = scanner.nextLine();
         System.out.println(messageInDic);
         parameters[3] = scanner.nextLine();
+
+    }
+    private void getContinueOrCloseParams(Scanner scanner, String[] parameters) {
+        System.out.println(CONTINUE_PROGRAM);
+        parameters[1] = scanner.nextLine();
+
+        parameters[2] = scanner.nextLine();
 
     }
 
@@ -83,12 +89,12 @@ public class ConsoleView implements View {
                 parameters[4] = scanner.nextLine();
                 System.out.println(continueTyping);
             } else if (parameters[2].equalsIgnoreCase(END)) {
-                parameters[3] = " ";
-                parameters[4] = " ";
+                parameters[3] = "";
+                parameters[4] = "";
                 break;
             }
         }
-        scanner.close();
+
     }
 
     @Override
@@ -97,6 +103,5 @@ public class ConsoleView implements View {
             case OK -> System.out.println(SUCCESS);
             case ERROR -> System.out.println(EXCEPTION + result.getApplicationException().getMessage());
         }
-
     }
 }

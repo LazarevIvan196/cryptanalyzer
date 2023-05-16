@@ -4,7 +4,7 @@ import com.javarush.cryptanalyzer.lazarev.exception.ApplicationException;
 import com.javarush.cryptanalyzer.lazarev.repository.ResultCode;
 
 public class Result {
-    private ResultCode resultCode;
+    private final ResultCode resultCode;
     private ApplicationException applicationException;
 
 

@@ -8,17 +8,23 @@ public class ApplicationConstant {
             Программа работает с текстовыми файлами, умеет зашифровывать и расшифровывать текст.
             """;
 
-    public static final String messageIn = "Введите путь к исходному файлу или нажмите Enter, чтобы воспользоваться демонстрационным файлом:";
-    public static final String messageInDic = "Введите путь к файлу co словарём или нажмите Enter, чтобы воспользоваться демонстрационным файлом:";
-    public static final String messageOut = "Введите путь к конечному файлу или нажмите Enter, чтобы воспользоваться демонстрационным файлом:";
-    public static final String messageKeyMode = "Введите режим генерации ключа (\"m\" - для ручного или \"r\" - для случайного):";
+    public static final String messageIn =
+            "Введите путь к исходному файлу или нажмите Enter, чтобы воспользоваться демонстрационным файлом :\n" +
+            "(input.txt - используется для последующего  шифрования)";
+    public static final String messageInBrut = "Введите путь к исходному файлу или нажмите Enter, чтобы воспользоваться демонстрационным файлом :\n" +
+            "(encoded.txt - используется для последующей  расшифровки)";
+    public static final String messageInDic = "Введите путь к файлу co словарём или нажмите Enter, чтобы воспользоваться демонстрационным файлом:\n" +
+            "(dictionary.txt - будет использован в качестве словаря)";
+    public static final String messageOut = "Введите путь к конечному файлу или нажмите Enter, чтобы воспользоваться демонстрационным файлом :\n" +
+            "(В output.txt - сохраниться расшифрованный текст)";
+    public static final String messageKeyMode = "Введите режим генерации ключа Enter для ручного ввода или \"r\" - для случайной генерации:";
     public static final String continueTyping = "Чтобы закончить редактирование введите - \"end\" или нажмите Enter, чтобы продолжить редактирование: ";
 
     public static final String messageKeyGenerated = "Сгенерирован ключ под номером: ";
     public static final String messageLetter = "Введите символ, который хотите заменить: ";
     public static final String messageLetterTwo = "Введите символ, НА который хотите заменить: ";
 
-    public static final String messageKey = "Введите ключ в целочисленном диапазоне от 1 до 83: ";
+    public static final String messageKey = "Введите ключ в целочисленном диапазоне : ";
     public static final String messageCase = "Чтобы зашифровать файл для последующего статистического анализа, введите \"l\", или нажмите Enter, чтобы зашифровать файл обычным способом:";
     public static final String messageMode = """
             Выберете режим работы:\s
@@ -36,4 +42,6 @@ public class ApplicationConstant {
     public static final String messageValidKey = "Валидный ключ: ";
 
     public static final String NEW_FUNCTIONAL = "Функционал находится в стадии разработки";
+    public static final String CONTINUE_PROGRAM = "Чтобы продолжить работать с программой нажмите \"y\" или нажмите \"n\" чтобы завершить выполнение программы";
+
 }

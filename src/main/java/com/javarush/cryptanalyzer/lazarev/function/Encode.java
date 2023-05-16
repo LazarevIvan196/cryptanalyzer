@@ -22,10 +22,12 @@ public class Encode implements Function {
         try (BufferedReader reader = new BufferedReader(new FileReader(inFilePath));
              BufferedWriter writer = new BufferedWriter(new FileWriter(outFilePath))) {
             int key = 0;
-            if (parameters[3].equalsIgnoreCase(MANUAL)) {
+            if (parameters[3].equalsIgnoreCase("")) {
                 key = Integer.parseInt(parameters[4]);
+                key = key % 83;
             } else if (parameters[3].equalsIgnoreCase(RANDOM)) {
-                key = (int) (Math.random() * ALPHABET.length());
+                key = (int) (Math.random() * alphabet.length());
+                key = key % 83;
                 System.out.println(messageKeyGenerated + key);
 
             }

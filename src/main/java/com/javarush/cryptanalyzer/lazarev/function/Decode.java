@@ -37,7 +37,7 @@ public class Decode implements Function {
                     if (index == -1) {
                         outputLine.append(c);
                     } else {
-                        int outputIndex = (index + key) % alphabet.length();
+                        int outputIndex = (index + key % 83) % alphabet.length();
                         outputLine.append(alphabet.charAt(outputIndex));
                     }
                 }

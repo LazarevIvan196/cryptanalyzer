@@ -14,7 +14,7 @@ public class SwapLetters extends StatisticalDecoder implements Function {
 
     @Override
     public Result execute(String[] parameters) {
-        File file = parameters[1].equals("") ? new File(OUTPUT) : new File(parameters[1]);
+        File file = parameters[1].isEmpty() ? new File(OUTPUT) : new File(parameters[1]);
         StringBuilder text = new StringBuilder();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -26,46 +26,41 @@ public class SwapLetters extends StatisticalDecoder implements Function {
             throw new RuntimeException(e);
         }
 
-        if (parameters[2].equals("") || parameters[3].equals(" ") || parameters[4].equals(" ")) {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+
+
+            char letterOne = parameters[3].charAt(0);
+            char letterTwo = parameters[4].charAt(0);
+            char temp = 'W';
+
+            for (int i = 0; i < text.length(); i++) {
+                if (text.charAt(i) == letterOne) {
+                    text.setCharAt(i, temp);
+                }
+            }
+
+            for (int i = 0; i < text.length(); i++) {
+                if (text.charAt(i) == letterTwo) {
+                    text.setCharAt(i, letterOne);
+                }
+            }
+
+            for (int i = 0; i < text.length(); i++) {
+                if (text.charAt(i) == temp) {
+                    text.setCharAt(i, letterTwo);
+                }
+            }
+
+            try {
                 writer.write(text.toString());
                 writer.flush();
+
             } catch (IOException e) {
                 return new Result(ERROR, new ApplicationException(messageErrorDecode));
             }
-
-            return new Result(ResultCode.OK);
-        }
-
-        char letterOne = parameters[3].charAt(0);
-        char letterTwo = parameters[4].charAt(0);
-        char temp = '¤';
-
-        for (int i = 0; i < text.length(); i++) {
-            if (text.charAt(i) == letterOne) {
-                text.setCharAt(i, temp);
-            }
-        }
-
-        for (int i = 0; i < text.length(); i++) {
-            if (text.charAt(i) == letterTwo) {
-                text.setCharAt(i, letterOne);
-            }
-        }
-
-        for (int i = 0; i < text.length(); i++) {
-            if (text.charAt(i) == temp) {
-                text.setCharAt(i, letterTwo);
-            }
-        }
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            writer.write(text.toString());
-            writer.flush();
         } catch (IOException e) {
-            return new Result(ERROR, new ApplicationException(messageErrorDecode));
+            throw new RuntimeException(e);
         }
-
         return new Result(ResultCode.OK);
     }
 }
